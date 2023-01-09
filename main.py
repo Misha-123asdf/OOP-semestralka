@@ -13,7 +13,7 @@ class Matrix:
         for line in file:
 
             a = line.split()
-            self.map[(a[0], a[1])] = a[2]
+            self.map[(a[0], a[1])] = float(a[2])
 
     def write(self, fileName):
 
@@ -24,6 +24,16 @@ class Matrix:
     def printed(self):
         for i, k in self.map.items():
             print(i, k)
+
+    def __mul__(self, b):
+        v = Vector()
+        v.read("b.txt")
+        for i in self.map:
+            # print(v.map[ i[0] ],self.map[i],b.map[i[1]])
+            
+            v.map[ i[0] ] += self.map[i]*b.map[i[1]]
+
+        return v
 
 
 class Vector:
@@ -39,18 +49,14 @@ class Vector:
 
         for line in file:
             a = line.split()
-            self.map[a[0]] = a[1]
+            self.map[a[0]] = float(a[1])
 
     def printed(self):
         for i, k in self.map.items():
             print(i, k)
 
 
-def mul(A: Matrix , b: Vector):
-    v = Vector()
 
-    for i in b.map:
-        print(i)
 
 
 
@@ -62,4 +68,4 @@ b = Vector()
 b.read("b.txt")
 # b.printed()
 
-mul(A,b)
+v=A*b
